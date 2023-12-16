@@ -1,0 +1,55 @@
+/node_modules
+/env
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Site-specific settings
+*.log
+db.sqlite3
+*.sqlite3
+
+# Media files
+media/
+
+# Static files
+staticfiles/
+
+# Virtual environment
+venv/
+__venv__/
+.env
+
+# IDE settings
+.idea/
+.vscode/
+
+# Compiled Python files
+*.pyc
+
+# Dependency directories
+__pycache__/
+.pytest_cache/
+
+# Testing
+.coverage
+.tox/
+
+# Django migrations
+**/migrations/
+
+# Ignore secret files
+*.secret
+*.key
+
+# Ignore database configuration
+*.sqlite
+
+# Ignore database backup files
+*.db
+
+# Ignore sensitive information
+*.sensitive
+*.config%
