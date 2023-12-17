@@ -4,6 +4,7 @@ from pathlib import Path
 
 import dj_database_url
 from dotenv import load_dotenv
+from oauthlib.oauth2 import WebApplicationClient
 
 # Load environment variables from .env file
 load_dotenv(verbose=True)
@@ -242,7 +243,14 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 
 GOOGLE_OAUTH_CLIENT_ID = os.environ.get("GOOGLE_OAUTH_CLIENT_ID", None)
 GOOGLE_OAUTH_CLIENT_SECRET = os.environ.get("GOOGLE_OAUTH_CLIENT_SECRET", None)
+GOOGLE_OAUTH2_REDIRECT_URI = '/login/google/callback'
+GOOGLE_OAUTH_CLIENT = WebApplicationClient(GOOGLE_OAUTH_CLIENT_ID)
+GOOGLE_DISCOVERY_URL = (
+    "https://accounts.google.com/.well-known/openid-configuration"
+)
 
+if DEBUG is True:
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 # Stripe
 

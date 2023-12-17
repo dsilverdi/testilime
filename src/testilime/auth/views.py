@@ -12,7 +12,7 @@ from testilime.auth.forms import (
     UpdatePasswordForm,
     UpdateUserForm,
 )
-from testilime.auth.utils import validate_google_id_token
+from testilime.auth.utils import validate_google_id_token, google_authorization_url
 
 
 @never_cache
@@ -152,14 +152,15 @@ def logout_view(request):
     return redirect("index")
 
 
-@require_POST
+@require_http_methods(["GET", "POST"])
 @csrf_exempt
-def signin_with_google_view(request):
+def signin_with_google_view_callback(request):
     next = request.POST.get("next", None)
 
     try:
         idinfo = validate_google_id_token(request)
     except Exception as e:
+        print("\ngot exeption >>>>>>> ", e)
         if next is None:
             return redirect("testilime-auth:register")
         return redirect(next)
@@ -178,3 +179,9 @@ def signin_with_google_view(request):
 
     login(request, user)
     return redirect("index") 
+
+@require_GET
+@csrf_exempt
+def signin_with_google_view(request):
+    authorization_url = google_authorization_url(request)
+    return redirect(authorization_url)

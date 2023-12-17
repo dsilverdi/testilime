@@ -9,10 +9,6 @@
             {% compress css %}
                 {% tailwind_css %}
             {% endcompress %}
-            <script src="https://js.stripe.com/v3/"></script>
-            {% if stripe_publishable_key != None %}
-                <script type="text/javascript">const stripe = Stripe("{{ stripe_publishable_key }}")</script>
-            {% endif %}
             <link rel="icon"
                   type="image/svg+xml"
                   href="{% static 'img/favicon/favicon.svg' %}">
@@ -20,7 +16,7 @@
                   type="image/png"
                   href="{% static 'img/favicon/favicon.png' %}">
         </head>
-        <body class="bg-gray-900 bg-gradient-to-br from-[#FFEFE0] to-white bg-fixed">
+        <body>
             {% block body %}{% endblock %}
         </body>
     </html>

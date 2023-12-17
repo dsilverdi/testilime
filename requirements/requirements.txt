@@ -44,6 +44,7 @@ shortuuid==1.0.11
 
 # Google
 google-auth==2.16.0
+oauthlib==3.2.2
 
 # Billing
 stripe==4.2.0

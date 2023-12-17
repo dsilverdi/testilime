@@ -47,13 +47,13 @@ class LoginForm(forms.Form):
     email = forms.EmailField(
         label="Email address",
         error_messages={"required": "You need to enter your email."},
-        widget=forms.EmailInput(attrs={"placeholder": "Enter your email address."}),
+        widget=forms.EmailInput(attrs={"placeholder": "Email"}),
     )
     password = forms.CharField(
         label="Password",
         error_messages={"required": "You need to enter your password."},
         widget=forms.TextInput(
-            attrs={"placeholder": "Enter your password."},
+            attrs={"placeholder": "Password"},
         ),
     )
 
@@ -64,12 +64,12 @@ class RegisterForm(forms.Form):
         max_length=settings.AUTH_USER_NAME_MAX_LENGTH,
         label="Full name",
         error_messages={"required": "You need to enter your name."},
-        widget=forms.TextInput(attrs={"placeholder": "Enter your name."}),
+        widget=forms.TextInput(attrs={"placeholder": "Full Name"}),
     )
     email = forms.EmailField(
         label="Email address",
         error_messages={"required": "You need to enter your email address."},
-        widget=forms.EmailInput(attrs={"placeholder": "Enter your email address."}),
+        widget=forms.EmailInput(attrs={"placeholder": "Email"}),
     )
     password = forms.CharField(
         min_length=8,
@@ -79,7 +79,7 @@ class RegisterForm(forms.Form):
             "min_length": "Your password must have at least 8 characters.",
         },
         widget=forms.TextInput(
-            attrs={"placeholder": "Create a password."},
+            attrs={"placeholder": "Password"},
         ),
     )
 

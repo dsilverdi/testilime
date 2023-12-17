@@ -42,6 +42,9 @@ module.exports = {
             maxWidth: {
                 '2xl': '40rem',
             },
+            backgroundImage: {
+                'gradient-lime': 'radial-gradient(circle, rgba(243,245,143,1) 0%, rgba(255,255,255,1) 100%)',
+            },
         },
     },
     plugins: [
