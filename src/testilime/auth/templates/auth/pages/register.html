@@ -6,8 +6,16 @@
     <meta name="robots" content="noindex,nofollow">
 {% endblock %}
 {% block body %}
-<div class="2xl:container px-4 md:px-16 py-5 md:py-10 h-screen">
+<div class="px-4 md:px-16 py-5 md:py-10 h-screen">
     <div class="m-auto self-auto justify-self-auto w-96">
+        <div class="flex flex-col items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="152" height="145" viewBox="0 0 182 178" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M57.9087 33.4552C39.1058 33.5054 23.8789 48.4287 23.8789 66.8301V70.7238H57.9087V70.8165H98.4796V70.7237C116.811 70.6735 131.656 56.1238 131.656 38.1832V33.4551H98.4796H98.3845H58.0039H57.9087V33.4552ZM57.9087 108.178V70.8165H98.4796V108.178H57.9087ZM98.4793 108.178V145.539H96.1096C75.0118 145.539 57.9087 128.812 57.9087 108.178H98.4793Z" fill="#22D934"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M85.0161 21.8239C66.2132 21.8741 50.9863 36.7973 50.9863 55.1987V59.0925H85.0161V59.1851H125.587V59.0923C143.919 59.0422 158.764 44.4924 158.764 26.5519V21.8237H125.587H125.492H85.1113H85.0161V21.8239ZM85.0161 96.5465V59.1851H125.587V96.5465H85.0161ZM125.587 96.5467V133.908H123.217C102.119 133.908 85.0161 117.181 85.0161 96.5467H125.587Z" fill="#FFD600"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M123.801 59.1853C128.702 53.5174 131.657 46.1878 131.657 38.1832V33.4551H98.4806H98.3855H59.2217C54.0886 39.2958 50.9863 46.893 50.9863 55.1989V59.0927H85.0161V59.1853H123.801ZM85.0161 70.8165H98.4806V70.7237C108.633 70.6959 117.716 66.2208 123.801 59.1853L85.0161 59.1853V70.8165ZM98.4806 96.5466H85.0161V70.8165L98.4806 70.8165V96.5466ZM98.4806 96.5469H85.0161C85.0161 100.608 85.6785 104.517 86.9035 108.178H98.4806V96.5469ZM98.4803 125.018C93.1753 120.605 89.1192 114.799 86.9035 108.178H98.4803V125.018Z" fill="black"/>
+            </svg>
+        </div>
+
         <h2 class="mb-10 tracking-tighter text-center text-3xl font-medium text-gray-900">Sign Up to Get Started</h2>
 
         <div class="text-center mt-5 w-5/6 mx-auto">
@@ -19,7 +27,7 @@
             </a>
         </div>
         
-        <div class="mt-10 py-5 px-5 border-2 text-center rounded-lg">
+        <div class="mt-10 py-5 px-5 text-center rounded-lg bg-[#FFF8D0]">
             <h3 class="font-medium text-gray-500">Or Sign Up using email</h3>
             <form action="{% url 'testilime-auth:register' %}"
                 method="post"
@@ -34,7 +42,7 @@
                 </form>
         </div>
 
-        <div>
+        <div class="pb-10">
             <p class="mt-4 text-center text-base text-gray-900">
                 Already have an account? 
                 <a href="{% url 'testilime-auth:login' %}" class="text-blue-600 hover:text-gray-800 font-semibold underline">Log in</a>
