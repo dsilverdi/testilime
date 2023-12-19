@@ -24,7 +24,7 @@
     }
 
     .btn-primary {
-        @apply rounded-lg bg-[#FFDB20] text-gray-700 hover:text-slate-100 hover:bg-[#DEBE18] active:bg-blue-900 active:text-white focus-visible:outline-blue-700;
+        @apply rounded-lg bg-[#7A9A47] text-white hover:text-slate-100 hover:bg-[#4E5F33] active:bg-blue-900 active:text-white focus-visible:outline-blue-700;
     }
 
     .btn-white {
@@ -32,7 +32,7 @@
     }
 
     .input {
-        @apply appearance-none rounded-lg border-gray-50 bg-gray-50 px-3 py-2 text-base text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-blue-500;
+        @apply appearance-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-base text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-blue-500;
     }
 
     .label {

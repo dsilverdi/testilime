@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "testilime.auth",
     "testilime.billing",
     "testilime.utils",
+    "testilime.core",
 ]
 
 if DEBUG is True:

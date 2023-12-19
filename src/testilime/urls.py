@@ -9,6 +9,7 @@ urlpatterns = [
     path("", views.index_view, name="index"),
     path("", include("testilime.auth.urls")),
     path("", include("testilime.billing.urls")),
+    path("", include("testilime.core.urls"))
 ]
 
 if settings.DEBUG is True:
