@@ -38,4 +38,19 @@
     .label {
         @apply text-base font-medium text-gray-900;
     }
+
+    .modal-container {
+        @apply fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 p-5 max-w-md mx-auto border border-gray-200 rounded-md bg-white shadow-lg;
+    }
+
+    .backdrop {
+        @apply fixed top-0 left-0 w-full h-full bg-white bg-opacity-50 backdrop-filter backdrop-blur-sm z-40;
+    }
+
+}
+
+@layer utilities {
+    .blur-background {
+        backdrop-filter: blur(2px);
+    }
 }
