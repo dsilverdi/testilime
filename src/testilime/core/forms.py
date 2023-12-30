@@ -17,7 +17,10 @@ class CreateProjectForm(forms.Form):
     message = forms.CharField(
         max_length=200,
         label="Message",
-        widget=forms.TextInput(attrs={"plceholder":"Message"})
+        widget=forms.TextInput(attrs={"placeholder": "Message"}),
     )
-
-
+    enable_ratings = forms.BooleanField(
+        label="Enable Ratings",
+        required=False,
+        initial=True,  # Default value, adjust as needed
+    )
