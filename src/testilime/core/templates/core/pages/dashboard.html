@@ -22,8 +22,9 @@
             <div class="backdrop" @click="showModal = false"></div>
             <div class="modal-container blur-background">
                 <h3 class="font-medium text-black text-center">Create New Project</h3>
-                <form action="{% url 'testilime-auth:login' %}" method="post" class="w-80 grid grid-cols-1 gap-y-3 mt-5 mb-5 px-5">
+                <form action="{% url 'testilime-core:dashboard' %}" method="post" class="w-80 grid grid-cols-1 gap-y-3 mt-5 mb-5 px-5">
                     {% csrf_token %}    
+                    {{ form }}    
                     <div class="mt-5">
                         <input type="submit"    
                             value="Create Project"
