@@ -100,7 +100,7 @@ def login_view(request):
                 )
                 if user is not None:
                     login(request, user)
-                    return redirect("index")
+                    return redirect("testilime-core:dashboard")
                 else:
                     form.add_error(None, "Incorrect email address or password.")
             else:
@@ -135,10 +135,10 @@ def register_view(request):
                 # create_subscription_for_user(user, settings.SUBSCRIPTION_TRIAL_PERIOD_DAYS)
 
                 login(request, user)
-                return redirect("index")
+                return redirect("testilime-core:dashboard")
             except IntegrityError as e:
                 form.add_error(
-                    None, "Este correo electrónico ya está asociado a una cuenta."
+                    None, "This email is already linked to an existing account."
                 )
 
     return render(request, "auth/pages/register.html", context)
@@ -178,7 +178,7 @@ def signin_with_google_view_callback(request):
     user.save()
 
     login(request, user)
-    return redirect("index") 
+    return redirect("testilime-core:dashboard") 
 
 @require_GET
 @csrf_exempt

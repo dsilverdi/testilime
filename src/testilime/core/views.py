@@ -9,6 +9,7 @@ from testilime.core.forms import CreateProjectForm
 
 @never_cache
 @require_GET
+@login_required
 def dashboard_view(request):
     context = {}
 
