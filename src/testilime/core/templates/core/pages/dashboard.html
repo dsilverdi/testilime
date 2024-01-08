@@ -33,5 +33,15 @@
                 </form>
             </div>
         </div>
+        <div class="mt-5 py-2">
+            <div class="grid grid-cols-3 gap-8">
+                {% for project in projects %}
+                    <div class="bg-white p-4 border-2 rounded-lg hover:border-[#478CDD]">
+                        <strong class="block text-xl mb-2">{{ project.name }}</strong>
+                        <p class="text-gray-600"><em>{{ project.header_title }}</em></p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -40,4 +40,12 @@ def dashboard_view(request):
     projects = Projects.objects.filter(user=request.user)
     context["projects"] = projects
 
+    print("GOT PROJECTS WITH SIZE =>>> ", len(projects))
+
     return render(request, "core/pages/dashboard.html", context)
+
+@never_cache
+@require_GET
+@login_required
+def project_detail_view(request, slug):
+    return
