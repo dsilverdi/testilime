@@ -21,17 +21,15 @@ def dashboard_view(request):
         if form.is_valid():
             try:
                 name = form.cleaned_data["name"]
-                header_title = form.cleaned_data["header_title"]
-                message = form.cleaned_data["message"]
-                enable_ratings = form.cleaned_data["enable_ratings"]
+                slug = form.cleaned_data["slug"]
+                description = form.cleaned_data["description"]
 
                 # Create Projects instance and save it to the database
                 _ = Projects.objects.create(
                     user=request.user,
                     name=name,
-                    header_title=header_title,
-                    message=message,
-                    enable_ratings=enable_ratings,
+                    slug=slug,
+                    description=description,
                 )
 
             except Exception as e:

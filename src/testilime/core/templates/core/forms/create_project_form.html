@@ -22,31 +22,31 @@
 </div>
 <div class="my-1">
 <div >
-    <input id="id_header_title"
-           name="header_title"
-           type="header_title"
-           placeholder="{{ form.header_title.field.widget.attrs.placeholder }}"
+    <input id="id_slug"
+           name="slug"
+           type="slug"
+           placeholder="{{ form.slug.field.widget.attrs.placeholder }}"
            required
            class="block w-full input">
 </div>
-{% if form.errors.header_title %}
+{% if form.errors.slug %}
     <ul class="pt-0.5">
-        {% for error in form.errors.header_title %}<li class="text-sm text-red-500">{{ error|escape }}</li>{% endfor %}
+        {% for error in form.errors.slug %}<li class="text-sm text-red-500">{{ error|escape }}</li>{% endfor %}
     </ul>
 {% endif %}
 </div>
 <div class="my-1">
 <div >
-    <input id="id_message"
-            name="message"
-            type="message"
-            placeholder="{{ form.message.field.widget.attrs.placeholder }}"
+    <input id="id_description"
+            name="description"
+            type="description"
+            placeholder="{{ form.description.field.widget.attrs.placeholder }}"
             required
             class="block w-full input">
 </div>
-{% if form.errors.message %}
+{% if form.errors.description %}
     <ul class="pt-0.5">
-        {% for error in form.errors.message %}<li class="text-sm text-red-500">{{ error|escape }}</li>{% endfor %}
+        {% for error in form.errors.description %}<li class="text-sm text-red-500">{{ error|escape }}</li>{% endfor %}
     </ul>
 {% endif %}
 </div>

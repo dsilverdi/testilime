@@ -8,19 +8,14 @@ class CreateProjectForm(forms.Form):
         error_messages={"required": "You need to enter your project's name."},
         widget=forms.TextInput(attrs={"placeholder": "Project Name"}),
     )
-    header_title = forms.CharField(
+    slug = forms.CharField(
         max_length=50,
-        label="Header Title",
-        error_messages={"required": "You need to enter Header Title."},
-        widget=forms.TextInput(attrs={"placeholder": "Header Title"}),
+        label="project slug",
+        error_messages={"required": "You need to enter project slug."},
+        widget=forms.TextInput(attrs={"placeholder": "project slug"}),
     )
-    message = forms.CharField(
+    description = forms.CharField(
         max_length=200,
-        label="Message",
-        widget=forms.TextInput(attrs={"placeholder": "Message"}),
-    )
-    enable_ratings = forms.BooleanField(
-        label="Enable Ratings",
-        required=False,
-        initial=True,  # Default value, adjust as needed
+        label="Description",
+        widget=forms.TextInput(attrs={"placeholder": "Description"}),
     )

@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 
 class Projects(models.Model):
@@ -7,13 +8,25 @@ class Projects(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=50)
-    header_title = models.CharField(max_length=50)
-    message = models.TextField()
-    enable_ratings = models.BooleanField(default=True)
+    slug = models.CharField(max_length=50, unique=True, default=uuid.uuid4, editable=False)
+    description = models.TextField()
 
     def __str__(self):
         return self.name
-    
+
+class TestimonialCollectionPageConfig(models.Model):
+    project = models.OneToOneField(
+        Projects, 
+        on_delete=models.CASCADE
+    )
+    header_title = models.CharField(max_length=50)
+    message = models.TextField()
+    enable_ratings = models.BooleanField(default=True)
+    is_active = models.BooleanField()
+
+    def __str__(self):
+        return f"{self.project.name} - {self.header_title}"
+ 
 class TestimonialItem(models.Model):
     project = models.ForeignKey(
         Projects,

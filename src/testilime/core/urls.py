@@ -5,5 +5,5 @@ app_name = "testilime-core"
 
 urlpatterns = [
     path("dashboard/", views.dashboard_view, name="dashboard"),
-    path("project/{slug}", views.project_detail_view, name="project-detail")
+    path("space/{slug}", views.project_detail_view, name="project-detail")
 ]
