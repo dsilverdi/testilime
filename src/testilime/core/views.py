@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http.response import HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404,redirect, render
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
@@ -46,4 +46,11 @@ def dashboard_view(request):
 @require_GET
 @login_required
 def project_detail_view(request, slug):
-    return
+    project = get_object_or_404(Projects, slug=slug, user=request.user)
+
+    context = {
+        'project': project,
+        # Add any additional context variables you need
+    }
+
+    return render(request, 'space_detail.html', context)
