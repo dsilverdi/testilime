@@ -38,9 +38,12 @@
         <div class="mt-5 py-2">
             <div class="grid grid-cols-3 gap-8">
                 {% for project in projects %}
-                    <a class="flex flex-col space-y-10 rounded-lg border border-gray-100 bg-white p-6 shadow transition-all hover:shadow-lg">
-                        <strong class="block text-xl mb-2">{{ project.name }}</strong>
-                        <p class="text-gray-600">{{ project.header_title }}</p>
+                    <a class="flex flex-col space-y-10 rounded-lg border border-gray-100 bg-white p-6 shadow transition-all hover:shadow-lg"
+                       href="{% url 'testilime-core:project-detail' slug=project.slug %}">
+                       <div>
+                            <strong class="block text-xl mb-2">{{ project.name }}</strong>
+                            <p class="text-gray-600">{{ project.slug }}</p>
+                       </div>
                     </a>
                 {% endfor %}
             </div>

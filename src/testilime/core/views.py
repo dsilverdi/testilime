@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404,redirect, render
 from django.views.decorators.cache import never_cache
@@ -32,13 +33,16 @@ def dashboard_view(request):
                     description=description,
                 )
 
-            except Exception as e:
-                form.add_error(None, "Error When Creating Project")
+                return redirect("testilime-core:dashboard")
+
+            except IntegrityError as e:
+                if 'unique constraint' in str(e):
+                    form.add_error('slug', 'This slug is already in use. Please choose a different one.')
+                else:
+                    form.add_error(None, 'Error When Creating Project')
 
     projects = Projects.objects.filter(user=request.user)
     context["projects"] = projects
-
-    print("GOT PROJECTS WITH SIZE =>>> ", len(projects))
 
     return render(request, "core/pages/dashboard.html", context)
 
@@ -53,4 +57,4 @@ def project_detail_view(request, slug):
         # Add any additional context variables you need
     }
 
-    return render(request, 'space_detail.html', context)
+    return render(request, 'core/pages/space_detail.html', context)
