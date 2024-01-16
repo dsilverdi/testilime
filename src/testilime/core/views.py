@@ -57,4 +57,43 @@ def project_detail_view(request, slug):
         # Add any additional context variables you need
     }
 
-    return render(request, 'core/pages/space_detail.html', context)
+    return render(request, 'core/pages/space_testimonial_page.html', context)
+
+@never_cache
+@require_GET
+@login_required
+def embeds_and_sharing_view(request, slug):
+    project = get_object_or_404(Projects, slug=slug, user=request.user)
+
+    context = {
+        'project': project,
+        # Add any additional context variables you need
+    }
+
+    return render(request, 'core/pages/space_embeds_and_sharing.html', context)
+
+@never_cache
+@require_GET
+@login_required
+def domain_settings_view(request, slug):
+    project = get_object_or_404(Projects, slug=slug, user=request.user)
+
+    context = {
+        'project': project,
+        # Add any additional context variables you need
+    }
+
+    return render(request, 'core/pages/space_domain_settings.html', context)
+
+@never_cache
+@require_GET
+@login_required
+def space_settings_view(request, slug):
+    project = get_object_or_404(Projects, slug=slug, user=request.user)
+
+    context = {
+        'project': project,
+        # Add any additional context variables you need
+    }
+
+    return render(request, 'core/pages/space_settings_page.html', context)
