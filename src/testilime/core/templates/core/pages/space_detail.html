@@ -7,11 +7,11 @@
 {% endblock %}
 {% block main %}
     <div class="px-4 py-2 md:px-16 bg-white border-b">
-        <div class="2xl:container w-full mx-auto py-6">
+        <div class="2xl:container w-full mx-auto py-6" x-data="{ splashVisible: false }">
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-gray-900 pl-8">{{ project.name }}</h1>
                 <div>
-                    <button class="btn btn-white btn-medium">
+                    <button class="btn btn-white btn-medium"  @click="splashVisible = true">
                         <div class="flex items-center mx-auto">
                             <span class="ml-2">Import Testimonial</span>
                         </div>
@@ -23,6 +23,7 @@
                     </button>
                 </div>
             </div>
+            {% include "core/pages/splash_testimonial_import.html" %}
             <ul class="flex grid-flow-row gap-x-6 text-md font-semibold text-gray-500 pt-5 pl-8">
                 <li><a href="{% url 'testilime-core:project-detail' slug=project.slug %}">Testimonial</a></li>
                 <li><a href="{% url 'testilime-core:project-detail-embeds-and-sharing' slug=project.slug %}">Embeds and Sharing</a></li>
