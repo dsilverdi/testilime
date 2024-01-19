@@ -97,3 +97,11 @@ def space_settings_view(request, slug):
     }
 
     return render(request, 'core/pages/space_settings_page.html', context)
+
+@require_http_methods(["GET", "POST"])
+@login_required
+def create_and_import_testimonial(request):
+    if request.method == "POST":
+        return JsonResponse()
+    else:
+        return render()
