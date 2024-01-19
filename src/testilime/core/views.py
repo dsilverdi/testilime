@@ -100,8 +100,11 @@ def space_settings_view(request, slug):
 
 @require_http_methods(["GET", "POST"])
 @login_required
-def create_and_import_testimonial(request):
+def create_and_import_testimonial(request, slug):
     if request.method == "POST":
         return JsonResponse()
     else:
-        return render()
+        context = {
+            'slug': slug
+        }
+        return render(request, 'core/pages/import.html', context)
