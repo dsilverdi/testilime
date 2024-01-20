@@ -19,3 +19,21 @@ class CreateProjectForm(forms.Form):
         label="Description",
         widget=forms.TextInput(attrs={"placeholder": "Description"}),
     )
+
+class ImportTextTestimonial(forms.Form):
+    name = forms.CharField(
+        max_length=50,
+        label="Name",
+        error_messages={"required": "Name is required"},
+        widget=forms.TextInput(attrs={"placeholder": "Name"}),
+    )
+    tagline = forms.CharField(
+        max_length=50,
+        label="Tagline",
+        widget=forms.TextInput(attrs={"placeholder": "Tagline"}),
+    )
+    testimonial = forms.CharField(
+        max_length=240,
+        label="Testimonial",
+        widget=forms.TextInput(attrs={"placeholder": "Testimonial"}),
+    )

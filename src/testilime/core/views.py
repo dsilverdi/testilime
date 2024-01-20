@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from testilime.core.forms import CreateProjectForm
 from testilime.core.models import Projects
+from testilime.core.helper import available_import_provider
 
 @never_cache
 @require_http_methods(["GET", "POST"])
@@ -104,7 +105,9 @@ def create_and_import_testimonial(request, slug):
     if request.method == "POST":
         return JsonResponse()
     else:
+        providers = available_import_provider(request)
         context = {
-            'slug': slug
+            'slug': slug,
+            'providers': providers
         }
         return render(request, 'core/pages/import.html', context)
