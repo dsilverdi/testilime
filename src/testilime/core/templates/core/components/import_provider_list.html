@@ -1,6 +1,6 @@
 {% for provider in providers %}
 <div>
-    <button class="flex w-full items-center gap-4 px-2 py-1.5 text-sm font-medium duration-100 my-0.5 rounded-md text-zinc-700">
+    <button @click="activeTab = {{provider.index}}" class="flex w-full items-center gap-4 px-2 py-1.5 text-sm font-medium duration-100 my-0.5 rounded-md text-zinc-700">
         {{provider.label}}
     </button>
 </div>

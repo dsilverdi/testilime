@@ -21,16 +21,17 @@ class CreateProjectForm(forms.Form):
     )
 
 class ImportTextTestimonial(forms.Form):
+    template_name = "core/forms/import_text_testimonial_form.html"
     name = forms.CharField(
         max_length=50,
         label="Name",
         error_messages={"required": "Name is required"},
-        widget=forms.TextInput(attrs={"placeholder": "Name"}),
+        widget=forms.TextInput(attrs={"placeholder": "Tony Stark"}),
     )
     tagline = forms.CharField(
         max_length=50,
         label="Tagline",
-        widget=forms.TextInput(attrs={"placeholder": "Tagline"}),
+        widget=forms.TextInput(attrs={"placeholder": "CEO of Stark Industries"}),
     )
     testimonial = forms.CharField(
         max_length=240,

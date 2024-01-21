@@ -1,0 +1,17 @@
+{% for provider in providers %}
+<div  x-show="activeTab === {{provider.index}}" class="flex h-full flex-col overflow-hidden rounded-b-2xl rounded-t-2xl border bg-white shadow-sm sm:rounded-b-none">
+    <!-- Your content goes here -->
+    <div class="text-lg font-medium pt-4 px-4 sm:px-8">
+        <h1>Import from {{provider.label}}</h1>
+    </div>
+    <div class="flex-grow overflow-y-auto px-4 pb-4 pt-4 sm:px-8">
+        <form method="post" action="{% url 'testilime-core:project-import-testimonial' slug=slug %}">
+            {% csrf_token %}
+            {{ provider.form }}
+            <div class="mt-5">
+                <input type="submit" value="Submit" class="w-full btn text-white btn-medium border-2 border-black bg-black hover:bg-white hover:text-black"/>
+            </div>
+        </form>
+    </div>
+</div>
+{% endfor %}

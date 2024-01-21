@@ -1,0 +1,58 @@
+
+{% for error in form.non_field_errors %}
+<div role="alert" class="w-full mb-2 bg-red-500 py-2 px-4 rounded">
+    <span class="text-white">{{ error }}</span>
+</div>
+{% endfor %}
+
+<div class="flex flex-row flex-grow w-full gap-4 py-2">
+    <div class="my-1 w-full">
+        <h3 class="font-medium text-zinc-500 pb-2">Name</h3>
+        <div>
+            <input id="id_name"
+                name="name"
+                type="name"
+                value="{{ form.name.value|default_if_none:'' }}"
+                placeholder="{{ form.name.field.widget.attrs.placeholder }}"
+                required
+                class="block w-full input">
+        </div>
+        {% if form.errors.name %}
+            <ul class="pt-0.5">
+                {% for error in form.errors.name %}<li class="text-sm text-red-500">{{ error|escape }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="my-1 w-full">
+        <h3 class="font-medium text-zinc-500 pb-2">Tagline</h3>
+        <div >
+            <input id="id_tagline"
+                name="tagline"
+                type="tagline"
+                placeholder="{{ form.tagline.field.widget.attrs.placeholder }}"
+                class="block w-full input">
+        </div>
+        {% if form.errors.tagline %}
+            <ul class="pt-0.5">
+                {% for error in form.errors.tagline %}<li class="text-sm text-red-500">{{ error|escape }}</li>{% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</div>
+
+<div class="my-1 py-2">
+    <h3 class="font-medium text-zinc-500 pb-2">Testimonial</h3>
+    <div class="relative">
+        <textarea id="id_testimonial"
+                name="testimonial"
+                type="testimonial"
+                required
+                class="w-full input h-32 resize-none"></textarea>
+    </div>
+    {% if form.errors.testimonial %}
+        <ul class="pt-0.5">
+            {% for error in form.errors.testimonial %}<li class="text-sm text-red-500">{{ error|escape }}</li>{% endfor %}
+        </ul>
+    {% endif %}
+</div>
+    
