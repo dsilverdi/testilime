@@ -1194,10 +1194,6 @@ select {
   flex-direction: column;
 }
 
-.place-content-start {
-  place-content: start;
-}
-
 .items-start {
   align-items: flex-start;
 }
@@ -1548,6 +1544,10 @@ select {
   padding-bottom: 1rem;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .pl-8 {
   padding-left: 2rem;
 }
@@ -1562,14 +1562,6 @@ select {
 
 .pt-5 {
   padding-top: 1.25rem;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-
-.text-left {
-  text-align: left;
 }
 
 .text-center {

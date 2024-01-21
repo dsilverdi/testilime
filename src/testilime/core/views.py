@@ -105,7 +105,7 @@ def create_and_import_testimonial(request, slug):
     if request.method == "POST":
         return JsonResponse()
     else:
-        providers = available_import_provider(request)
+        providers = available_import_provider()
         context = {
             'slug': slug,
             'providers': providers
