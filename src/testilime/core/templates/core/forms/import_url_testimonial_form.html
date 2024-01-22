@@ -12,6 +12,8 @@
             name="url"
             type="url"
             placeholder="{{ form.url.field.widget.attrs.placeholder }}"
+            x-model="formData"
+            required
             class="block w-full input">
     </div>
     {% if form.errors.url %}

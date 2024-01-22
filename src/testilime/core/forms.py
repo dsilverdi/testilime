@@ -42,10 +42,16 @@ class ImportTextTestimonial(forms.Form):
         label="Testimonial",
         widget=forms.TextInput(attrs={"placeholder": "Testimonial"}),
     )
+    provider_index = forms.IntegerField()
 
 class ImportUrlTestimonial(forms.Form):
     def __init__(self, title_param, placeholder_param, *args, **kwargs):
         super(ImportUrlTestimonial, self).__init__(*args, **kwargs)
-        self.fields['url'] = forms.URLField(label=title_param, widget=forms.TextInput(attrs={'placeholder': placeholder_param}))
+        self.fields['url'] = forms.URLField(
+            label=title_param,
+            error_messages={"required": "Name is required"},
+            widget=forms.TextInput(attrs={'placeholder': placeholder_param})
+        )
     
     template_name = "core/forms/import_url_testimonial_form.html"
+    provider_index = forms.IntegerField()

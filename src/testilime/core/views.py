@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from testilime.core.forms import CreateProjectForm
 from testilime.core.models import Projects
-from testilime.core.helper import available_import_provider
+from testilime.core.helper import available_import_provider, get_provider_form_mapping
 
 @never_cache
 @require_http_methods(["GET", "POST"])
@@ -103,7 +103,27 @@ def space_settings_view(request, slug):
 @login_required
 def create_and_import_testimonial(request, slug):
     if request.method == "POST":
-        return JsonResponse()
+        provider_index = request.POST.get('provider_index')
+        form_data = request.POST.dict()
+
+        # Assuming you have a dictionary to map provider indices to their respective form classes
+        provider_form_mapping = get_provider_form_mapping()
+        form_class = provider_form_mapping.get(provider_index)
+
+        if form_class:
+            form = form_class(form_data)
+            if form.is_valid():
+                print(form.cleaned_data)
+                data = {'message': 'Form submitted successfully!'}
+                return JsonResponse(data)
+            else:
+                # If the form is not valid, return an error message
+                errors = {'error': 'Invalid form submission', 'errors': form.errors}
+                return JsonResponse(errors, status=400)
+        else:
+            # Handle the case when the provider_index is not valid
+            return JsonResponse({'error': 'Invalid provider index'}, status=400)
+
     else:
         providers = available_import_provider()
         context = {

@@ -26,3 +26,10 @@ def available_import_provider():
         ImportProvider(ImportProviderIndex.Whatsapp.value, 'Whatsapp', textForm),
     ]
     return available_provider
+
+def get_provider_form_mapping():
+    return {
+        ImportProviderIndex.TextTestimonial.value: ImportTextTestimonial,
+        ImportProviderIndex.Twitter.value: ImportUrlTestimonial,
+        ImportProviderIndex.Shopee.value: ImportTextTestimonial
+    }
