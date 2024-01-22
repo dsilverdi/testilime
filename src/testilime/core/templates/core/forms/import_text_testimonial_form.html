@@ -14,7 +14,6 @@
                 type="name"
                 value="{{ form.name.value|default_if_none:'' }}"
                 placeholder="{{ form.name.field.widget.attrs.placeholder }}"
-                x-model="formData"
                 required
                 class="block w-full input">
         </div>
@@ -31,7 +30,6 @@
                 name="tagline"
                 type="tagline"
                 placeholder="{{ form.tagline.field.widget.attrs.placeholder }}"
-                x-model="formData"
                 class="block w-full input">
         </div>
         {% if form.errors.tagline %}
@@ -48,7 +46,6 @@
         <textarea id="id_testimonial"
                 name="testimonial"
                 type="testimonial"
-                x-model="formData"
                 required
                 class="w-full input h-32 resize-none"></textarea>
     </div>

@@ -4,11 +4,11 @@
     <div class="text-lg font-medium pt-4 px-4 sm:px-8">
         <h1>Import from {{provider.label}}</h1>
     </div>
-    <div x-data="{ formData: {} }" class="flex-grow overflow-y-auto px-4 pb-4 pt-4 sm:px-8">
-        <form method="post" action="{% url 'testilime-core:project-import-testimonial' slug=slug %}" @submit.prevent="submitForm">
+    <div class="flex-grow overflow-y-auto px-4 pb-4 pt-4 sm:px-8">
+        <form method="post" action="{% url 'testilime-core:project-import-testimonial' slug=slug %}" @submit.prevent="submitForm" x-data="{ status: 'normal', errors: {} }">
             {% csrf_token %}
             {{ provider.form }}
-            <input type="hidden" name="provider_index" id="provider_index" value="{{provider.index}}" x-model="formData" required>
+            <input type="hidden" name="provider_index" id="provider_index" value={{provider.index}}>
             <div class="mt-5">
                 <input type="submit" value="Submit" class="w-full btn text-white btn-medium border-2 border-black bg-black hover:bg-white hover:text-black"/>
             </div>
@@ -17,26 +17,25 @@
 </div>
 {% endfor %}
 <script>
-    // Alpine.js component logic
-    function submitForm() {
-            // Get the form data using Alpine.js
-            const formData = this.formData;
+    function submitForm(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
 
-            // Send a POST request to the Django view
-            fetch("{% url 'testilime-core:project-import-testimonial' slug=slug %}", {
-                method: 'POST',
+            // Update the `endpointUrl` to your specific url below.
+            const endpointUrl = event.target.action
+            fetch(endpointUrl, {
+                method: "post",
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value,
+                    'X-CSRFToken': '{{ csrf_token }}',
                 },
-                body: new URLSearchParams({ 'data': formData }),
             })
-            .then(response => response.json())
+            .then(response => {
+                this.status = response.ok ? 'success' : 'error';
+                return response.json();
+            })
             .then(data => {
-                console.log(data);
-                // Handle the JsonResponse as needed
+                this.errors = data.errors || {};
             });
         }
-
-        window.submitForm = submitForm;
 </script>

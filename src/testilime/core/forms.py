@@ -35,14 +35,16 @@ class ImportTextTestimonial(forms.Form):
     tagline = forms.CharField(
         max_length=50,
         label="Tagline",
+        required=False,
         widget=forms.TextInput(attrs={"placeholder": "CEO of Stark Industries"}),
     )
     testimonial = forms.CharField(
         max_length=240,
         label="Testimonial",
+        error_messages={"required": "Testiminial field is required"},
         widget=forms.TextInput(attrs={"placeholder": "Testimonial"}),
     )
-    provider_index = forms.IntegerField()
+    # provider_index = forms.IntegerField()
 
 class ImportUrlTestimonial(forms.Form):
     def __init__(self, title_param, placeholder_param, *args, **kwargs):
@@ -54,4 +56,4 @@ class ImportUrlTestimonial(forms.Form):
         )
     
     template_name = "core/forms/import_url_testimonial_form.html"
-    provider_index = forms.IntegerField()
+    # provider_index = forms.IntegerField()
