@@ -6,12 +6,12 @@
 {% endfor %}
 
 <div class="my-1 py-2">
-    <h3 class="font-medium text-zinc-500 pb-2">{{form.url.label}}</h3>
+    <h3 class="font-medium text-zinc-500 pb-2">{{form.title}}</h3>
     <div>
         <input id="id_url"
             name="url"
             type="url"
-            placeholder="{{ form.url.field.widget.attrs.placeholder }}"
+            placeholder="{{ form.placeholder }}"
             required
             class="block w-full input">
     </div>

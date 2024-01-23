@@ -21,10 +21,6 @@ class CreateProjectForm(forms.Form):
     )
 
 class ImportTextTestimonial(forms.Form):
-    def __init__(self, has_ratings, *args, **kwargs):
-        super(ImportTextTestimonial, self).__init__(*args, **kwargs)
-        self.has_ratings = has_ratings
-
     template_name = "core/forms/import_text_testimonial_form.html"
     name = forms.CharField(
         max_length=50,
@@ -44,16 +40,27 @@ class ImportTextTestimonial(forms.Form):
         error_messages={"required": "Testiminial field is required"},
         widget=forms.TextInput(attrs={"placeholder": "Testimonial"}),
     )
-    # provider_index = forms.IntegerField()
+    provider_index = forms.IntegerField()
+
+class ImportTextTestimonialView(ImportTextTestimonial):
+    def __init__(self, has_ratings, *args, **kwargs):
+        super(ImportTextTestimonialView, self).__init__(*args, **kwargs)
+        self.has_ratings = has_ratings
+
+class ImportTextTestimonialValidation(ImportTextTestimonial):
+    pass
 
 class ImportUrlTestimonial(forms.Form):
-    def __init__(self, title_param, placeholder_param, *args, **kwargs):
-        super(ImportUrlTestimonial, self).__init__(*args, **kwargs)
-        self.fields['url'] = forms.URLField(
-            label=title_param,
-            error_messages={"required": "Name is required"},
-            widget=forms.TextInput(attrs={'placeholder': placeholder_param})
-        )
     
     template_name = "core/forms/import_url_testimonial_form.html"
-    # provider_index = forms.IntegerField()
+    url = forms.URLField(error_messages={"required": "Name is required"},)
+    provider_index = forms.IntegerField()
+
+class ImportUrlTestimonialView(ImportUrlTestimonial):
+    def __init__(self, title_param, placeholder_param, *args, **kwargs):
+        super(ImportUrlTestimonialView, self).__init__(*args, **kwargs)
+        self.title = title_param
+        self.placeholder = placeholder_param
+
+class ImportUrlTestimonialValidation(ImportUrlTestimonial):
+    pass
