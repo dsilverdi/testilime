@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http.response import HttpResponse, JsonResponse
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404,redirect, render
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
@@ -9,7 +9,7 @@ from django.views.decorators.http import require_GET, require_http_methods, requ
 from testilime.core.forms import CreateProjectForm
 from testilime.core.models import Projects
 from testilime.core.helper import available_import_provider, get_provider_form_mapping
-from testilime.core.forms import ImportTextTestimonial
+from testilime.core.manager import process_testimonial_creation
 
 @never_cache
 @require_http_methods(["GET", "POST"])
@@ -48,7 +48,6 @@ def dashboard_view(request):
 
     return render(request, "core/pages/dashboard.html", context)
 
-@never_cache
 @require_GET
 @login_required
 def project_detail_view(request, slug):
@@ -61,7 +60,6 @@ def project_detail_view(request, slug):
 
     return render(request, 'core/pages/space_testimonial_page.html', context)
 
-@never_cache
 @require_GET
 @login_required
 def embeds_and_sharing_view(request, slug):
@@ -74,7 +72,6 @@ def embeds_and_sharing_view(request, slug):
 
     return render(request, 'core/pages/space_embeds_and_sharing.html', context)
 
-@never_cache
 @require_GET
 @login_required
 def domain_settings_view(request, slug):
@@ -87,7 +84,6 @@ def domain_settings_view(request, slug):
 
     return render(request, 'core/pages/space_domain_settings.html', context)
 
-@never_cache
 @require_GET
 @login_required
 def space_settings_view(request, slug):
@@ -103,6 +99,8 @@ def space_settings_view(request, slug):
 @require_http_methods(["GET", "POST"])
 @login_required
 def create_and_import_testimonial(request, slug):
+    _ = get_object_or_404(Projects, slug=slug, user=request.user) # check if the user is owner for the project
+
     if request.method == "POST":
         provider_index = int(request.POST.get('provider_index'))
         form_data = request.POST.dict()
@@ -112,13 +110,17 @@ def create_and_import_testimonial(request, slug):
         form_class = provider_form_mapping.get(provider_index)
 
         if form_class:
-            form = ImportTextTestimonial(has_ratings=False, data=form_data)
+            form = form_class(data=form_data)
             if form.is_valid():
-                data = {'message': 'Form submitted successfully!'}
-                return JsonResponse(data)
+                try:
+                    process_testimonial_creation(form.cleaned_data, slug)
+                    data = {'message': 'Form submitted successfully!'}
+                    return JsonResponse(data)
+                except IntegrityError as e:
+                    errors = {'error': 'Error When Creating Project'}
+                    return JsonResponse(errors, status=400)
             else:
                 errors = {'error': 'Invalid form submission', 'errors': form.errors}
-                print(errors)
                 return JsonResponse(errors, status=400)
         else:
             return JsonResponse({'error': 'Invalid provider'}, status=400)

@@ -14,6 +14,16 @@ class ImportProviderIndex(Enum):
     Shopify = auto()
     Whatsapp = auto()
 
+class TextTestimonialProvider(Enum):
+    TextTestimonial = ImportProviderIndex.TextTestimonial
+    Shopee = ImportProviderIndex.Shopee
+    Shopify = ImportProviderIndex.Shopify
+    Whatsapp = ImportProviderIndex.Whatsapp
+
+class UrlTestimonialProvider(Enum):
+    Twitter = ImportProviderIndex.Twitter
+    Linkedin = ImportProviderIndex.Linkedin
+
 class ImportProvider():
     def __init__(self, index, label, form):
         self.index = index
@@ -38,3 +48,9 @@ def get_provider_form_mapping():
         ImportProviderIndex.Twitter.value: ImportUrlTestimonialValidation,
         ImportProviderIndex.Shopee.value: ImportTextTestimonialValidation
     }
+
+def IsTextTestimonial(provider_index):
+    return provider_index in TextTestimonialProvider
+
+def IsUrlTestimonial(provider_index):
+    return provider_index in UrlTestimonialProvider

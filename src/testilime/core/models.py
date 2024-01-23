@@ -13,6 +13,9 @@ class Projects(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        unique_together = ('id', 'slug')
 
 class TestimonialCollectionPageConfig(models.Model):
     project = models.OneToOneField(
@@ -34,8 +37,8 @@ class TestimonialItem(models.Model):
         on_delete=models.CASCADE
     )
     author_name = models.CharField(max_length=255)
-    author_position = models.CharField(max_length=255, blank=True, null=True)
+    author_tagline = models.CharField(max_length=255, blank=True, null=True)
     has_ratings = models.BooleanField(default=True)  # New field for ratings configuration
     ratings = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
-    content = models.TextField()
+    testimonial = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
