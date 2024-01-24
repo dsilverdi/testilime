@@ -8,11 +8,11 @@ from enum import Enum, auto
 
 class ImportProviderIndex(Enum):
     TextTestimonial = 1
-    Twitter = auto()
-    Linkedin = auto()
-    Shopee = auto()
-    Shopify = auto()
-    Whatsapp = auto()
+    Twitter = 2
+    Linkedin = 3
+    Shopee = 4
+    Shopify = 5
+    Whatsapp = 6
 
 class TextTestimonialProvider(Enum):
     TextTestimonial = ImportProviderIndex.TextTestimonial
@@ -50,7 +50,15 @@ def get_provider_form_mapping():
     }
 
 def IsTextTestimonial(provider_index):
-    return provider_index in TextTestimonialProvider
+    if isinstance(provider_index, int):
+        provider_index = ImportProviderIndex(provider_index)
+        return any(member.value == provider_index for member in TextTestimonialProvider)
+    
+    return False
 
 def IsUrlTestimonial(provider_index):
-    return provider_index in UrlTestimonialProvider
+    if isinstance(provider_index, int):
+        provider_index = ImportProviderIndex(provider_index)
+        return any(member.value == provider_index for member in UrlTestimonialProvider)
+    
+    return False

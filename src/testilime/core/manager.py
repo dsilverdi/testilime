@@ -2,8 +2,9 @@ from testilime.core.helper import IsTextTestimonial, IsUrlTestimonial
 from testilime.core.models import Projects, TestimonialItem
 from django.shortcuts import get_object_or_404
 
-import datetime
+from datetime import datetime
 
+# TODO: add success alert on success creation in html template
 def process_testimonial_creation(data, slug):
     provider_index = data['provider_index']
     project = get_object_or_404(Projects, slug=slug)
