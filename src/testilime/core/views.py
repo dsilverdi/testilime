@@ -7,7 +7,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_GET, require_http_methods, require_POST
 from testilime.core.forms import CreateProjectForm
-from testilime.core.models import Projects
+from testilime.core.models import Projects, TestimonialItem
 from testilime.core.helper import available_import_provider, get_provider_form_mapping
 from testilime.core.manager import process_testimonial_creation
 
@@ -53,8 +53,11 @@ def dashboard_view(request):
 def project_detail_view(request, slug):
     project = get_object_or_404(Projects, slug=slug, user=request.user)
 
+    testimonial_items = TestimonialItem.objects.filter(project=project)
+
     context = {
         'project': project,
+        'testimonials': testimonial_items
         # Add any additional context variables you need
     }
 

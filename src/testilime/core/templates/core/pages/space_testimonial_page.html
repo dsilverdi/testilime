@@ -1,5 +1,10 @@
 {% extends "core/pages/space_detail.html" %}
 {% block content %}
     <div>
+        {% for testimonial in testimonials %}
+        <div>
+            <p>{{testimonial.testimonial}}</p>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}
