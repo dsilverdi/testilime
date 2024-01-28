@@ -1033,6 +1033,10 @@ select {
   margin-top: 0.25rem;
 }
 
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -1172,6 +1176,10 @@ select {
 
 .grid-flow-row {
   grid-auto-flow: row;
+}
+
+.grid-flow-col {
+  grid-auto-flow: column;
 }
 
 .grid-cols-1 {
