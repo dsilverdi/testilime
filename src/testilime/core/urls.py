@@ -9,5 +9,7 @@ urlpatterns = [
     path("space/<slug:slug>/embeds-and-sharing", views.embeds_and_sharing_view, name="project-detail-embeds-and-sharing"),
     path("space/<slug:slug>/domain", views.domain_settings_view, name="project-detail-domain-settings"),
     path("space/<slug:slug>/space-settings", views.space_settings_view, name="project-detail-space-settings"),
-    path("space/<slug:slug>/import-testimonial", views.create_and_import_testimonial, name="project-import-testimonial")
+    path("space/<slug:slug>/import-testimonial", views.create_and_import_testimonial, name="project-import-testimonial"),
+
+    path("testimonial/<slug:slug>", views.get_testimonial_list, name="get-testimonial-list")
 ]

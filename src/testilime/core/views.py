@@ -52,16 +52,28 @@ def dashboard_view(request):
 @login_required
 def project_detail_view(request, slug):
     project = get_object_or_404(Projects, slug=slug, user=request.user)
-
-    testimonial_items = TestimonialItem.objects.filter(project=project)
-
     context = {
         'project': project,
-        'testimonials': testimonial_items
-        # Add any additional context variables you need
     }
-
     return render(request, 'core/pages/space_testimonial_page.html', context)
+
+@require_GET
+@login_required
+def get_testimonial_list(request, slug):
+    project = get_object_or_404(Projects, slug=slug, user=request.user)
+
+    testimonial_items = TestimonialItem.objects.filter(project=project)
+    testimonials_list = []
+    for item in testimonial_items:
+        testimonial_dict = {
+            'author_name': item.author_name,
+            'testimonial': item.testimonial,
+            'created_at_formatted': item.created_at.strftime("%b %d, %Y, %I:%M %p"),
+            # Add other fields as needed
+        }
+        testimonials_list.append(testimonial_dict)
+
+    return JsonResponse(testimonials_list, safe=False)
 
 @require_GET
 @login_required
