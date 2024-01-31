@@ -18,13 +18,25 @@
                             <div x-on:click="toggleOption('Option 1')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 1') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 1</div>
                             <div x-on:click="toggleOption('Option 2')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 2') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 2</div>
                             <div x-on:click="toggleOption('Option 3')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 3') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 3</div>
+                            <div x-on:click="toggleOption('Option 4')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 4') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 4</div>
+                            <div x-on:click="toggleOption('Option 5')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 5') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 5</div>
                         </div>
                     </div>
                 
                     <!-- Display selected options below the input -->
-                    <div x-show="selectedOptions.length > 0" class="mt-2">
-                        Selected Options: <span x-text="selectedOptions.join(', ')"></span>
+                    <div class="grid grid-cols-3 gap-1 py-4">
+                        <template x-show="selectedOptions.length" x-for="providerOption in selectedOptions">
+                            <div class="text-center font-medium px-3 py-2 rounded-md border shadow flex justify-between items-center">
+                                <span x-text="providerOption"></span>
+                                <button type="button" @click="status = ''" class="ml-2 focus:outline-none">
+                                    <svg class="h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                         </template>
                     </div>
+                    
                 </div>
             </div>  
         </div>
