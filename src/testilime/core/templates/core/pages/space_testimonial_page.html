@@ -4,17 +4,27 @@
         <div class="w-full sm:max-w-[28rem] px-2 pb-5 sm:px-6">
             <div class="flex flex-col rounded-lg border border-gray-100 bg-white p-6 shadow">
                 <h2 class="text-xl font-medium">Filter Testimonial</h2>
-                <div class="mb-4 py-4" x-data="{ selectedProvider: '' }" x-on:change="filterTestimonials(selectedProvider)" >
-                    <select x-model="selectedProvider" id="importProvider" name="importProvider" class="block w-full input">
-                        <option value="" selected>All Providers</option>
-                        <option value="csv">CSV</option>
-                        <option value="youtube">YouTube</option>
-                        <option value="whatsapp">WhatsApp</option>
-                        <option value="tiktok">TikTok</option>
-                        <option value="twitter">Twitter</option>
-                        <option value="linkedin">LinkedIn</option>
-                        <option value="shopify">Shopify</option>
-                    </select>
+                <div x-data="dropdown()" class="py-4">
+                    <input
+                        x-on:click="open = !open"
+                        class="block w-full input caret-transparent"
+                        placeholder="Search Providers"
+                    >
+                    
+                    <div x-show="open" x-on:click.away="open = false" class="mt-2">
+                        <!-- Dropdown content goes here -->
+                        <div class="bg-white shadow-md rounded-md p-2">
+                            <!-- Your dropdown list items go here -->
+                            <div x-on:click="toggleOption('Option 1')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 1') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 1</div>
+                            <div x-on:click="toggleOption('Option 2')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 2') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 2</div>
+                            <div x-on:click="toggleOption('Option 3')" :class="{ 'bg-gray-200': selectedOptions.includes('Option 3') }" class="cursor-pointer hover:bg-gray-100 p-2">Option 3</div>
+                        </div>
+                    </div>
+                
+                    <!-- Display selected options below the input -->
+                    <div x-show="selectedOptions.length > 0" class="mt-2">
+                        Selected Options: <span x-text="selectedOptions.join(', ')"></span>
+                    </div>
                 </div>
             </div>  
         </div>
@@ -41,6 +51,25 @@
 
             // Update the filteredTestimonials array
             // Alpine.store('filteredTestimonials', filteredTestimonials);
+        }
+
+        function dropdown() {
+            return {
+                open: false,
+                selectedOptions: [],
+
+                toggleOption(option) {
+                    const index = this.selectedOptions.indexOf(option);
+
+                    if (index === -1) {
+                        this.selectedOptions.push(option);
+                    } else {
+                        this.selectedOptions.splice(index, 1);
+                    }
+
+                    const options = this.selectedOptions
+                },
+            };
         }
     </script>
     
