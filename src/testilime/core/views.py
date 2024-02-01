@@ -11,6 +11,8 @@ from testilime.core.models import Projects, TestimonialItem
 from testilime.core.helper import available_import_provider, get_provider_form_mapping
 from testilime.core.manager import process_testimonial_creation
 
+import json
+
 @never_cache
 @require_http_methods(["GET", "POST"])
 @login_required
@@ -57,23 +59,31 @@ def project_detail_view(request, slug):
     }
     return render(request, 'core/pages/space_testimonial_page.html', context)
 
-@require_GET
+@require_http_methods(["GET", "POST"])
 @login_required
 def get_testimonial_list(request, slug):
     project = get_object_or_404(Projects, slug=slug, user=request.user)
 
-    testimonial_items = TestimonialItem.objects.filter(project=project)
-    testimonials_list = []
-    for item in testimonial_items:
-        testimonial_dict = {
-            'author_name': item.author_name,
-            'testimonial': item.testimonial,
-            'created_at_formatted': item.created_at.strftime("%b %d, %Y, %I:%M %p"),
-            # Add other fields as needed
-        }
-        testimonials_list.append(testimonial_dict)
+    # filter testimonial
+    if request.method == "POST":
+        if request.body:
+            data = json.loads(request.body.decode('utf-8'))
+            provider_data = data.get('provider', [])
 
-    return JsonResponse(testimonials_list, safe=False)
+        return JsonResponse({})
+    else:
+        testimonial_items = TestimonialItem.objects.filter(project=project)
+        testimonials_list = []
+        for item in testimonial_items:
+            testimonial_dict = {
+                'author_name': item.author_name,
+                'testimonial': item.testimonial,
+                'created_at_formatted': item.created_at.strftime("%b %d, %Y, %I:%M %p"),
+                # Add other fields as needed
+            }
+            testimonials_list.append(testimonial_dict)
+
+        return JsonResponse(testimonials_list, safe=False)
 
 @require_GET
 @login_required
@@ -120,7 +130,6 @@ def create_and_import_testimonial(request, slug):
         provider_index = int(request.POST.get('provider_index'))
         form_data = request.POST.dict()
         form_data['provider_index'] = provider_index
-
         provider_form_mapping = get_provider_form_mapping()
         form_class = provider_form_mapping.get(provider_index)
 

@@ -45,6 +45,9 @@ def available_import_provider():
 def get_provider_form_mapping():
     return {
         ImportProviderIndex.TextTestimonial.value: ImportTextTestimonialValidation,
+        ImportProviderIndex.Whatsapp.value: ImportTextTestimonialValidation,
+        ImportProviderIndex.Shopee.value: ImportTextTestimonialValidation, 
+        ImportProviderIndex.Shopify.value: ImportTextTestimonialValidation, 
         ImportProviderIndex.Twitter.value: ImportUrlTestimonialValidation,
         ImportProviderIndex.Shopee.value: ImportTextTestimonialValidation
     }

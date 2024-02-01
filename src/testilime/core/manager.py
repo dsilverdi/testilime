@@ -18,6 +18,7 @@ def process_testimonial_creation(data, slug):
             'ratings': 1, # temporary need to solve if has ratings
             'testimonial': data['testimonial'],
             'created_at': datetime.now(),
+            'provider_type': provider_index,
         }
         testimonial_item = TestimonialItem(**data)
         testimonial_item.save()

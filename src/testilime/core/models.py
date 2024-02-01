@@ -42,3 +42,4 @@ class TestimonialItem(models.Model):
     ratings = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
     testimonial = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    provider_type = models.IntegerField(default=0)
