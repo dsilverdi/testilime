@@ -1,10 +1,10 @@
 {% extends "core/pages/space_detail.html" %}
 {% block content %}
-    <div class="flex py-5 flex-col flex-grow sm:flex-row">
+    <div class="flex py-5 flex-col flex-grow sm:flex-row"  x-data="testimonialHandler()" x-init="testimonials = await (await fetch('{% url 'testilime-core:get-testimonial-list' slug=project.slug %}')).json()">
         <div class="w-full sm:max-w-[28rem] px-2 pb-5 sm:px-6">
             <div class="flex flex-col rounded-lg border border-gray-100 bg-white p-6 shadow">
                 <h2 class="text-xl font-medium">Filter Testimonial</h2>
-                <div x-data="dropdown()" class="py-4">
+                <div class="py-4">
                     <input
                         x-on:click="open = !open"
                         class="block w-full input caret-transparent"
@@ -15,12 +15,9 @@
                         <!-- Dropdown content goes here -->
                         <div class="bg-white shadow-md rounded-md p-2 text-sm">
                             <!-- Your dropdown list items go here -->
-                            <div x-on:click="toggleOption('Text Testimonial')" :class="{ 'bg-gray-200': selectedOptions.includes('Text Testimonial') }" class="cursor-pointer hover:bg-gray-100 p-2">Text Testimonial</div>
-                            <div x-on:click="toggleOption('Whatsapp')" :class="{ 'bg-gray-200': selectedOptions.includes('Whatsapp') }" class="cursor-pointer hover:bg-gray-100 p-2">Whatsapp</div>
-                            <div x-on:click="toggleOption('Shopee')" :class="{ 'bg-gray-200': selectedOptions.includes('Shopee') }" class="cursor-pointer hover:bg-gray-100 p-2">Shopee</div>
-                            <div x-on:click="toggleOption('Shopify')" :class="{ 'bg-gray-200': selectedOptions.includes('Shopify') }" class="cursor-pointer hover:bg-gray-100 p-2">Shopify</div>
-                            <div x-on:click="toggleOption('Twitter')" :class="{ 'bg-gray-200': selectedOptions.includes('Twitter') }" class="cursor-pointer hover:bg-gray-100 p-2">Twitter</div>
-                            <div x-on:click="toggleOption('LinkedIn')" :class="{ 'bg-gray-200': selectedOptions.includes('LinkedIn') }" class="cursor-pointer hover:bg-gray-100 p-2">LinkedIn</div>
+                            {% for provider in providers %}
+                                <div x-on:click="toggleOption('{{provider.label}}')" :class="{ 'bg-gray-200': selectedOptions.includes('{{provider.label}}') }" class="cursor-pointer hover:bg-gray-100 p-2">{{provider.label}}</div>
+                            {% endfor %}
                         </div>
                     </div>
                 
@@ -41,8 +38,8 @@
                 </div>
             </div>  
         </div>
-        <div class="grid-flow-col gap-8 w-full px-2" x-data="{ testimonials: [] }" x-init="testimonials = await (await fetch('{% url 'testilime-core:get-testimonial-list' slug=project.slug %}')).json()">
-            <template x-show="testimonials.length" x-for="testimonial in testimonials">
+        <div class="grid-flow-col gap-8 w-full px-2">
+            <template x-show="testimonials.length > 0" x-for="testimonial in testimonials">
                 <div class="flex flex-col space-y-5 rounded-lg border border-gray-100 bg-white p-6 shadow transition-all hover:shadow-lg mb-4">
                     <div class="flex justify-between items-center">
                         <h2 class="block text-lg mb-2 font-medium" x-text="testimonial.author_name"></h2>
@@ -55,25 +52,15 @@
     </div>
 
     <script>
-        function filterTestimonials(selectedProvider) {
-            console.log(selectedProvider)
-            // Use the selected provider to filter testimonials
-            // const filteredTestimonials = selectedProvider
-            //    ? testimonials.filter(testimonial => testimonial.import_provider === selectedProvider)
-            //    : testimonials;
-
-            // Update the filteredTestimonials array
-            // Alpine.store('filteredTestimonials', filteredTestimonials);
-        }
-
-        function dropdown() {
+        function testimonialHandler() {
             return {
                 open: false,
                 selectedOptions: [],
+                testimonials: [],
 
                 async toggleOption(option) {
                     const index = this.selectedOptions.indexOf(option);
-                    const doFetch = false
+                    var doFetch = false
 
                     if (index === -1 && this.selectedOptions.length < 5) {
                         this.selectedOptions.push(option);
@@ -91,15 +78,32 @@
                     };
 
                     if (doFetch) {
-                        await fetch("{% url 'testilime-core:get-testimonial-list' slug=project.slug %}", {
-                            method: 'POST', // Adjust the method as needed
+                    try {
+                        const response = await fetch("{% url 'testilime-core:get-testimonial-list' slug=project.slug %}", {
+                            method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                                 'X-CSRFToken': '{{ csrf_token }}',
                             },
-                            body: JSON.stringify(requestBody)
+                            body: JSON.stringify(requestBody),
                         });
+
+                        if (response.ok) {
+                            // Assuming the API response is in JSON format
+                            const responseData = await response.json();
+
+                            // Update testimonials data
+                            this.testimonials = responseData;
+
+                            // For debugging purposes, you can log the updated testimonials
+                            console.log('Updated Testimonials:', this.testimonials);
+                        } else {
+                            console.error('Failed to fetch testimonials:', response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Error fetching testimonials:', error);
                     }
+                }
                     
                 },
             };
